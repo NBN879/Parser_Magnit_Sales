@@ -14,7 +14,7 @@ def collect_data(city_code='2398'):
 
     headers = {
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
-        'UserAgent': ua.random,
+        'User-Agent': ua.random,
     }
 
     cookies = {
@@ -26,10 +26,10 @@ def collect_data(city_code='2398'):
     # with open(f'index.html', 'w', encoding='utf-8') as file:
     #     file.write(response.text)
 
-    # with open('index.html', encoding='utf-8') as file:
-    #     src = file.read()
+    with open('index.html', encoding='utf-8') as file:
+        src = file.read()
 
-    soup = BeautifulSoup(response.text, 'lxml')
+    soup = BeautifulSoup(src, 'lxml')
 
     city = soup.find('a', class_='header__contacts-link_city').text.strip()
 
@@ -66,7 +66,7 @@ def collect_data(city_code='2398'):
         card_sale_date = card.find('div', class_='card-sale__date').text.strip().replace('\n', ' ')
         # print(card_sale_date)
 
-        with open(f'{city}_{cur_time}.csv', 'a', encoding='cp1251') as file:
+        with open(f'{city}_{cur_time}.csv', 'a',  encoding='cp1251') as file:
             writer = csv.writer(file, delimiter=',')
             writer.writerow(
                 (
